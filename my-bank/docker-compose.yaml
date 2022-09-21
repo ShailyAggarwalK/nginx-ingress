@@ -1,0 +1,50 @@
+version: "3.7"
+
+volumes:
+  my-bank-employee:
+  my-bank-customer:
+
+services:
+  employee:
+    build:
+      context: "<PATH_TO_REPO_ON_LOCAL>/nginx-ingress/my-bank/my-bank-employee"
+      dockerfile: "./Dockerfile"
+    image: "my-bank-employee"
+    volumes:
+      - "<PATH_TO_REPO_ON_LOCAL>/nginx-ingress/my-bank/my-bank-employee:/my-bank-employee"
+    ports:
+      - "8081:8081"
+    networks:
+      - "app"
+
+  customer:
+    build:
+      context: "<PATH_TO_REPO_ON_LOCAL>/nginx-ingress/my-bank/my-bank-customer"
+      dockerfile: "./Dockerfile"
+    image: "my-bank-customer"
+    volumes:
+      - "<PATH_TO_REPO_ON_LOCAL>/nginx-ingress/my-bank/my-bank-customer:/my-bank-customer"
+    ports:
+      - "8080:8080"
+    networks:
+      - "app"
+
+  nginx-proxy:
+    build:
+      context: "<PATH_TO_REPO_ON_LOCAL>/nginx-ingress/my-bank/my-bank-nginx-proxy"
+      dockerfile: "./Dockerfile"
+    image: "my-bank-nginx-proxy"
+    volumes:
+      - "<PATH_TO_REPO_ON_LOCAL>/nginx-ingress/my-bank/my-bank-nginx-proxy:/my-bank-nginx-proxy"
+    ports:
+      - "80:80"
+    networks:
+      - "app"
+    depends_on:
+      - customer
+      - employee
+
+networks:
+  app:
+    driver: "bridge"
+
