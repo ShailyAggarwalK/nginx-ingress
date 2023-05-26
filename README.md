@@ -21,3 +21,5 @@ Steps to run :
 3. once up, access app at http://localhost:80 (app can also be accessed at my-bank.com if it is added in /etc/hosts)
 4. upon clicking on `customer portal`, app gets redirected to port 8080 via nginx proxy we created
 4. upon clicking on `employee portal`, app gets redirected to port 8081 via nginx proxy we created
+
+More details<a href="https://shailyaggarwal.medium.com/replicate-kubernetes-ingress-using-plain-nginx-and-docker-compose-in-less-than-5-minutes-8b435530a674"> here </a>.
